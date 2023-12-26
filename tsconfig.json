@@ -32,6 +32,6 @@
     "**/*.tsx",
     "types.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "app/api/new/hello.js"  ],
   "exclude": ["node_modules"]
 }
