@@ -4,6 +4,7 @@ import RoomsList from "componets/roomsList/roomsList"
 import Chat from 'componets/chat/chat'
 import Character from 'componets/character/character'
 import BuddyList from 'componets/listFriends/buddyList'
+import Register from "componets/modals/register"
 import styles from '@/styles/page.module.css'
 
 export const metadata = {
@@ -11,6 +12,7 @@ export const metadata = {
 }
 
 export default function Page() {
+
   return (
     <div className={styles.container}>
       <div className={styles.contentNavbar}>
@@ -28,6 +30,7 @@ export default function Page() {
           <BuddyList />
         </div>
       </div>
-    </div>
-  )
+      <Register />
+      </div>
+      )
 }
