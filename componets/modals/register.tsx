@@ -1,26 +1,26 @@
 'use client'
 import { useState } from "react";
 
-const register = ({ }) => {
+const registerAndLogin = ({ }) => {
 
-  const [formData, setFormData] = useState({
+  const [formDataRegister, setFormDataRegister] = useState({
     name: '',
     username: '',
     email: '',
     password: '',
   })
 
-  const { name, username, email, password } = formData;
+  const { name, username, email, password } = formDataRegister;
 
-  const handleChange = (e: any) => {
+  const handleChangeRegister = (e: any) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
+    setFormDataRegister((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
 
-  const submitForm = async (e: any) => {
+  const submitFormRegister = async (e: any) => {
     e.preventDefault();
 
     // Realiza la solicitud de registro al backend
@@ -30,7 +30,7 @@ const register = ({ }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formDataRegister),
       });
 
       if (response.ok) {
@@ -44,29 +44,30 @@ const register = ({ }) => {
     }
   };
 
+
   return (
     <div>
-      <form onSubmit={submitForm} >
+      <form onSubmit={submitFormRegister} >
         <input
           type='text'
           name='name'
           placeholder='name'
           value={name}
-          onChange={handleChange}
+          onChange={handleChangeRegister}
         />
         <input
           type='text'
           name='username'
           placeholder='username'
           value={username}
-          onChange={handleChange}
+          onChange={handleChangeRegister}
         />
         <input
           type='email'
           name='email'
           placeholder='Email'
           value={email}
-          onChange={handleChange}
+          onChange={handleChangeRegister}
         />
 
         <input
@@ -74,12 +75,15 @@ const register = ({ }) => {
           name='password'
           placeholder='Password'
           value={password}
-          onChange={handleChange}
+          onChange={handleChangeRegister}
         />
         <button >Register</button>
       </form>
+
+
+    
     </div>
   )
 }
 
-export default register;
+export default registerAndLogin;
