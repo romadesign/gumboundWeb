@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { render, screen } from '@testing-library/react'
-import Page from './(site)/page'
+import Page from './(site)test/page'
 
 it('App Router: Works with Server Components', () => {
   render(<Page />)

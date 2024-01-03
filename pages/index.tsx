@@ -7,12 +7,15 @@
 import Register from "componets/modals/register"
 import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
+import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 // export const metadata = {
 //   title: 'App Router',
 // }
 
-export default function Page() {
+export default function Page(props) {
+  const { data: session } = useSession();
 
   return (
     <div className={styles.container}>
@@ -33,6 +36,17 @@ export default function Page() {
       </div>
       <Register />
       <Login />
+
+      {session && (
+          <Link href="#" onClick={() => signOut()} className="btn-signin">
+            Sign out
+          </Link>
+        )}
+        {!session && (
+          <Link href="#" onClick={() => signIn()} className="btn-signin">
+            Sign in
+          </Link>
+        )}
       </div>
       )
 }
