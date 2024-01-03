@@ -13,7 +13,6 @@ export const authOptions = {
                 password: { label: "Password", type: "password", placeholder: "*****" },
             },
             async authorize(credentials, req) {
-                // console.log(credentials)
 
                 const userFound = await db.account.findUnique({
                     where: {
@@ -26,9 +25,6 @@ export const authOptions = {
                 console.log(userFound)
                 
                 const matchPassword = await bcrypt.compare(credentials.password, userFound.password);
-
-                console.log(credentials.password, 'credentials.password')
-                console.log(matchPassword, 'userFound.password')
 
                 if (!matchPassword) throw new Error('Wrong password')
 

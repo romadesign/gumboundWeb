@@ -5,6 +5,7 @@ import Chat from 'componets/chat/chat'
 import Character from 'componets/character/character'
 import BuddyList from 'componets/listFriends/buddyList'
 import Register from "componets/modals/register"
+import Servers from "componets/servers/servers"
 import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -34,19 +35,13 @@ export default function Page(props) {
           <BuddyList />
         </div>
       </div>
+      <Servers />
       {!session && (
           <div className={styles.contentAuth}>
             <Login />
             <Register />
         </div>
       )}
-
-      {session && (
-        <Link href="#" onClick={() => signOut()} className="btn-signin">
-          Sign out
-        </Link>
-      )}
-
     </div>
   )
 }
