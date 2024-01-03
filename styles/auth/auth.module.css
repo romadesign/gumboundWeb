@@ -1,0 +1,36 @@
+.contentLogin{
+    height: 200px;
+    background-color: #0881ff;
+    display: flex;
+    align-items: center;
+}
+
+.contentRegister{
+    height: 200px;
+    background-color:#0881ff;
+    display: flex;
+    align-items: center;
+}
+.contentLogin form{
+    padding: 1rem;
+    display: grid;
+    gap: 5px;
+}
+
+.contentRegister form{
+    padding: 1rem;
+    display: grid;
+    gap: 5px;
+    border-left: 3px solid #000;  /* Línea izquierda de 1px sólido de color negro */
+
+}
+
+.contentLogin form input{
+    height: 20px;
+    border-radius: 5px;
+}
+
+.contentRegister form input{
+    height: 20px;
+    border-radius: 5px;
+}

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import styles from '@/styles/auth/auth.module.css'
 
 const registerAndLogin = ({ }) => {
 
@@ -46,7 +47,7 @@ const registerAndLogin = ({ }) => {
 
 
   return (
-    <div>
+    <div className={styles.contentRegister}>
       <form onSubmit={submitFormRegister} >
         <input
           type='text'

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import styles from '@/styles/auth/auth.module.css'
 
 const login = ({ }) => {
 
@@ -36,14 +37,13 @@ const login = ({ }) => {
 
 
   return (
-    <div>
+    <div className={styles.contentLogin}>
       <form onSubmit={handleSubmit} >
         <input
           type='email'
           name='email'
           placeholder='Email'
           onChange={(e) => setEmail(e.target.value)} />
-
         <input
           type='password'
           name='password'
@@ -51,9 +51,6 @@ const login = ({ }) => {
           onChange={(e) => setPassword(e.target.value)} />
         <button >Login</button>
       </form>
-
-
-
     </div>
   )
 }

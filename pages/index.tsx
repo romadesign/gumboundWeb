@@ -1,9 +1,9 @@
-// import Navbar from "componets/navbar/navbar"
-// import SubNavbar from "componets/navbar/subNavbar"
-// import RoomsList from "componets/roomsList/roomsList"
-// import Chat from 'componets/chat/chat'
-// import Character from 'componets/character/character'
-// import BuddyList from 'componets/listFriends/buddyList'
+import Navbar from "componets/navbar/navbar"
+import SubNavbar from "componets/navbar/subNavbar"
+import RoomsList from "componets/roomsList/roomsList"
+import Chat from 'componets/chat/chat'
+import Character from 'componets/character/character'
+import BuddyList from 'componets/listFriends/buddyList'
 import Register from "componets/modals/register"
 import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
@@ -20,33 +20,33 @@ export default function Page(props) {
   return (
     <div className={styles.container}>
       <div className={styles.contentNavbar}>
-        {/* <Navbar /> */}
-        {/* <SubNavbar /> */}
+        <Navbar />
+        <SubNavbar />
       </div>
       <div className={styles.contentTwo}>
         <div className={styles.RoomsListAnChatContainer}>
-          {/* <RoomsList />
-          <Chat /> */}
+          <RoomsList />
+          <Chat />
         </div>
 
         <div className={styles.characterAndBuddyListContainer}>
-          {/* <Character />
-          <BuddyList /> */}
+          <Character />
+          <BuddyList />
         </div>
       </div>
-      <Register />
-      <Login />
+      {!session && (
+          <div className={styles.contentAuth}>
+            <Login />
+            <Register />
+        </div>
+      )}
 
       {session && (
-          <Link href="#" onClick={() => signOut()} className="btn-signin">
-            Sign out
-          </Link>
-        )}
-        {!session && (
-          <Link href="#" onClick={() => signIn()} className="btn-signin">
-            Sign in
-          </Link>
-        )}
-      </div>
-      )
+        <Link href="#" onClick={() => signOut()} className="btn-signin">
+          Sign out
+        </Link>
+      )}
+
+    </div>
+  )
 }
