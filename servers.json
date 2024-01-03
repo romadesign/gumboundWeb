@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "name": "React Server",
+    "description": "Servidor para usuarios que utilizan React",
+    "technology": "React",
+    "language": "JavaScript",
+    "framework": "Next.js",
+    "address": "react-server.example.com",
+    "port": 3001,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Angular Server",
+    "description": "Servidor para usuarios que utilizan Angular",
+    "technology": "Angular",
+    "language": "TypeScript",
+    "framework": "Angular",
+    "address": "angular-server.example.com",
+    "port": 3002,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Vue.js Server",
+    "description": "Servidor para usuarios que utilizan Vue.js",
+    "technology": "Vue.js",
+    "language": "JavaScript",
+    "framework": "Nuxt.js",
+    "address": "vue-server.example.com",
+    "port": 3003,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Express Server",
+    "description": "Servidor para usuarios que utilizan Express.js",
+    "technology": "Node.js",
+    "language": "JavaScript",
+    "framework": "Express.js",
+    "address": "express-server.example.com",
+    "port": 3004,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Django Server",
+    "description": "Servidor para usuarios que utilizan Django",
+    "technology": "Python",
+    "language": "Python",
+    "framework": "Django",
+    "address": "django-server.example.com",
+    "port": 3005,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Spring Boot Server",
+    "description": "Servidor para usuarios que utilizan Spring Boot",
+    "technology": "Java",
+    "language": "Java",
+    "framework": "Spring Boot",
+    "address": "spring-boot-server.example.com",
+    "port": 3006,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Laravel Server",
+    "description": "Servidor para usuarios que utilizan Laravel",
+    "technology": "PHP",
+    "language": "PHP",
+    "framework": "Laravel",
+    "address": "laravel-server.example.com",
+    "port": 3007,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Flask Server",
+    "description": "Servidor para usuarios que utilizan Flask",
+    "technology": "Python",
+    "language": "Python",
+    "framework": "Flask",
+    "address": "flask-server.example.com",
+    "port": 3008,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Node.js Express Server",
+    "description": "Servidor para usuarios que utilizan Node.js con Express",
+    "technology": "Node.js",
+    "language": "JavaScript",
+    "framework": "Express.js",
+    "address": "nodejs-express-server.example.com",
+    "port": 3009,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Ruby on Rails Server",
+    "description": "Servidor para usuarios que utilizan Ruby on Rails",
+    "technology": "Ruby",
+    "language": "Ruby",
+    "framework": "Ruby on Rails",
+    "address": "rails-server.example.com",
+    "port": 3010,
+    "level": [
+      "Junior",
+      "Mid",
+      "Senior"
+    ]
+  }
+]
