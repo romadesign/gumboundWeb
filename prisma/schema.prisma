@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,11 +8,86 @@ datasource db {
 }
 
 model Account {
-  id  Int @id @default(autoincrement())
-  email   String  @unique
-  name    String  @unique
-  password  String?
-  isOnline Boolean @default(false)
-  birthday  DateTime @default(now()) @db.Date
-  username  String @unique
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  name     String   @unique
+  password String?
+  isOnline Boolean  @default(false)
+  birthday DateTime @default(now()) @db.Date
+  username String   @unique
+}
+
+model Profile {
+  id       Int      @id @default(autoincrement())
+  userId   Int      @unique
+  name     String   @unique
+  imageUrl String   @db.Text
+  email    String   @unique
+
+  servers  Server[]
+  members  Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+}
+
+model Server {
+  id        Int      @id @default(autoincrement())
+  name      String
+  imageUrl  String   @db.Text
+
+  profileId Int
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  members   Member[]
+  channels  Channel[]
+
+  createdAt DateTime @default(now())
+
+  @@index([profileId])
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
+
+model Member {
+  id        Int        @id @default(autoincrement())
+  role      MemberRole @default(GUEST)
+
+  profileId Int
+  profile   Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  serverId  Int
+  server    Server     @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime    @default(now())
+
+  @@index([profileId])
+  @@index([serverId])
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
+model Channel {
+  id        Int         @id @default(autoincrement())
+  name      String
+  type      ChannelType @default(TEXT)
+
+  profileId Int
+  profile   Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  serverId  Int
+  server    Server      @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime    @default(now())
+
+  @@index([profileId])
+  @@index([serverId])
 }

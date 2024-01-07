@@ -17,6 +17,7 @@ const servers = () => {
           {
             serversData.map(server => (
               <Server
+                key={server.id}
                 name={server.name}
                 level={server.level}
               />
