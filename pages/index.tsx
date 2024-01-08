@@ -1,3 +1,5 @@
+"use client"
+
 import Navbar from "componets/navbar/navbar"
 import SubNavbar from "componets/navbar/subNavbar"
 import RoomsList from "componets/roomsList/roomsList"
@@ -10,6 +12,8 @@ import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { SocketProvider } from "componets/providers/socket-provider"
+import { SocketIndicator } from "componets/socket-indicator"
 
 // export const metadata = {
 //   title: 'App Router',
@@ -20,26 +24,33 @@ export default function Page(props) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentNavbar}>
-        <Navbar />
-        <SubNavbar />
-      </div>
-      <div className={styles.contentTwo}>
-        <div className={styles.RoomsListAnChatContainer}>
-          <RoomsList />
-          <Chat />
-        </div>
 
-        <div className={styles.characterAndBuddyListContainer}>
-          <Character />
-          <BuddyList />
+      {!session ? (
+        <div className={styles.contentAuth}>
+          <Login />
+          <Register />
         </div>
-      </div>
-      <Servers />
-      {!session && (
-          <div className={styles.contentAuth}>
-            <Login />
-            <Register />
+      ) : (
+        <div>
+          <SocketProvider>
+            <div className={styles.contentNavbar}>
+              <Navbar />
+              <SubNavbar />
+            </div>
+            <div className={styles.contentTwo}>
+              <div className={styles.RoomsListAnChatContainer}>
+                <RoomsList />
+                <Chat />
+              </div>
+
+              <div className={styles.characterAndBuddyListContainer}>
+                <Character />
+                <BuddyList />
+              </div>
+            </div>
+            <Servers />
+            <SocketIndicator />
+          </SocketProvider>
         </div>
       )}
     </div>
