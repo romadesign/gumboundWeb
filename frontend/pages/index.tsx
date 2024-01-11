@@ -12,15 +12,18 @@ import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import { SocketProvider } from "componets/providers/socket-provider"
-import { SocketIndicator } from "componets/socket-indicator"
-
+import SocketIndicator from "componets/socket-indicator"
 // export const metadata = {
 //   title: 'App Router',
 // }
 
+
+
 export default function Page(props) {
   const { data: session } = useSession();
+
+  // const socket = io("http://localhost:4000")
+  // console.log(socket, "hol")
 
   return (
     <div className={styles.container}>
@@ -32,8 +35,7 @@ export default function Page(props) {
         </div>
       ) : (
         <div>
-          <SocketProvider>
-            <div className={styles.contentNavbar}>
+            {/* <div className={styles.contentNavbar}>
               <Navbar />
               <SubNavbar />
             </div>
@@ -48,9 +50,8 @@ export default function Page(props) {
                 <BuddyList />
               </div>
             </div>
-            <Servers />
+            <Servers /> */}
             <SocketIndicator />
-          </SocketProvider>
         </div>
       )}
     </div>
