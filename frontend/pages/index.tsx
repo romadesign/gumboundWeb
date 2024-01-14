@@ -10,17 +10,28 @@ import Register from "componets/modals/register"
 import Servers from "componets/servers/servers"
 import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
-import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import SocketIndicator from "componets/socket-indicator"
 // export const metadata = {
 //   title: 'App Router',
 // }
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react"
 
 
 
 export default function Page(props) {
-  const { data: session } = useSession();
+
+  function checkAuthentication() {
+    const userEmail = Cookies.get('userToken');
+    return !!userEmail; // Devuelve true si el userEmail está presente
+  }
+
+  const [statusLog, setStatusLog] = useState(false);
+  useEffect(() => {
+    const isAuthenticated = checkAuthentication();
+    setStatusLog(isAuthenticated);
+  }, []);
 
   // const socket = io("http://localhost:4000")
   // console.log(socket, "hol")
@@ -28,7 +39,7 @@ export default function Page(props) {
   return (
     <div className={styles.container}>
 
-      {!session ? (
+      {!statusLog ? (
         <div className={styles.contentAuth}>
           <Login />
           <Register />

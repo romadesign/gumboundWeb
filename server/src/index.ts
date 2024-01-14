@@ -4,6 +4,7 @@ import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 import profilesRouter from "./routes/profiles.routes";
+import { authenticateUser, disconnectUser, connectedUsers } from "./routes/auth/authService";
 
 const app = express();
 const server = http.createServer(app); // Conectar Express al servidor HTTP
@@ -12,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 
 const { PORT } = process.env || 4000;
-
 app.use("/api", profilesRouter);
 
 const io = new Server(server, {
@@ -20,11 +20,20 @@ const io = new Server(server, {
     origin: "http://localhost:3000",
   },
 });
-const connectedUsers = new Set();
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+
   console.log(io.engine.clientsCount);
+  socket.on("authenticate", async ({ email, password }) => {
+    const isAuthenticated = await authenticateUser({ socket, email, password });
+    if (isAuthenticated) {
+      // Emitir evento de autenticación exitosa
+      socket.emit("authenticated", { success: true });
+    } else {
+      // Emitir evento de autenticación fallida
+      socket.emit("authenticated", { success: false });
+    }
+  });
 
   // Agregar el ID del usuario al conjunto de usuarios conectados
   connectedUsers.add(socket.id);
