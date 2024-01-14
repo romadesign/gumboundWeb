@@ -1,6 +1,7 @@
 // authService.ts
 import { PrismaClient } from '@prisma/client';
 import { Socket } from 'socket.io';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -9,34 +10,29 @@ type AuthenticateUserArgs = {
   email: string;
   password: string;
 };
+
 const connectedUsers = new Set();
 
 const authenticateUser = async ({ socket, email, password }: AuthenticateUserArgs) => {
   try {
-    // Validar datos de entrada si es necesario
-
     const user = await prisma.user.findUnique({
       where: {
         email,
       },
     });
 
-    const profile = await prisma.profile.findUnique({
-      where: {
-        userId: user?.id
-      }
-    })
+    if (!user) {
+      console.log(`User not found for email: ${email}`);
+      return false; // Autenticación fallida
+    }
 
-    if (user && user.password === password) {
-      console.log(`User authenticated: ${email}`);
+    // Verificar la contraseña solo si existe un usuario
+    const passwordMatch = user.password ? bcrypt.compare(password, user.password) : false;
+
+    if (passwordMatch) {
       connectedUsers.add(socket.id);
       // Emitir evento de actualización de lista de usuarios autenticados
       socket.emit('updateUserList', Array.from(connectedUsers.values()));
-
-      // Emitir evento de autenticación exitosa con datos adicionales
-      socket.emit('authenticationSuccess', {
-        additionalData: { email: user.email, id: user.id, profile: profile }
-      });
 
       return true; // Autenticación exitosa
     } else {
@@ -56,6 +52,5 @@ const disconnectUser = (socket: Socket, connectedUsers: Map<string, string>) => 
   // Emitir evento de actualización de lista de usuarios autenticados
   socket.emit('updateUserList', Array.from(connectedUsers.values()));
 };
-
 
 export { authenticateUser, disconnectUser, connectedUsers };
