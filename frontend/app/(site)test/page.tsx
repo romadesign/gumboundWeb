@@ -7,7 +7,6 @@
 import Register from "componets/modals/register"
 import Login from "componets/modals/login"
 import styles from '@/styles/page.module.css'
-import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
 // export const metadata = {
@@ -15,7 +14,6 @@ import Link from "next/link";
 // }
 
 export default function Page() {
-  const { data: session } = useSession();
 
   return (
     <div className={styles.container}>
@@ -37,16 +35,7 @@ export default function Page() {
       <Register />
       <Login />
 
-      {session && (
-          <Link href="#" onClick={() => signOut()} className="btn-signin">
-            Sign out
-          </Link>
-        )}
-        {!session && (
-          <Link href="#" onClick={() => signIn()} className="btn-signin">
-            Sign in
-          </Link>
-        )}
+     
       </div>
       )
 }

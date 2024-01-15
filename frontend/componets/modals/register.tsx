@@ -3,15 +3,14 @@ import { useState } from "react";
 import styles from '@/styles/auth/auth.module.css'
 
 const registerAndLogin = ({ }) => {
-
+  const api = process.env.NEXT_PUBLIC_BACKAPI_URL
   const [formDataRegister, setFormDataRegister] = useState({
     name: '',
-    username: '',
     email: '',
     password: '',
   })
 
-  const { name, username, email, password } = formDataRegister;
+  const { name, email, password } = formDataRegister;
 
   const handleChangeRegister = (e: any) => {
     const { name, value } = e.target;
@@ -26,7 +25,7 @@ const registerAndLogin = ({ }) => {
 
     // Realiza la solicitud de registro al backend
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch(`${api}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,13 +56,6 @@ const registerAndLogin = ({ }) => {
           onChange={handleChangeRegister}
         />
         <input
-          type='text'
-          name='username'
-          placeholder='username'
-          value={username}
-          onChange={handleChangeRegister}
-        />
-        <input
           type='email'
           name='email'
           placeholder='Email'
@@ -80,9 +72,6 @@ const registerAndLogin = ({ }) => {
         />
         <button >Register</button>
       </form>
-
-
-    
     </div>
   )
 }

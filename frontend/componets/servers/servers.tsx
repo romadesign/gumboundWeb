@@ -1,19 +1,33 @@
 import style from '@/styles/servers/servers.module.css'
 import Server from '../servers/server'
-import { useSession, signIn, signOut } from "next-auth/react";
 import Link from 'next/link';
 import serversData from '../../servers.json';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { io } from 'socket.io-client';
 
 
 const servers = () => {
-  const { data: session } = useSession();
+
+  const handleLogout = () => {
+    // Limpiar información de autenticación
+    Cookies.remove('userToken');
+
+    // Desconectar el socket si existe
+    const socket = io("http://localhost:4000");
+    socket.disconnect();
+    window.location.reload();
+
+  };
+
+
   return (
     <div >
       <div className={style.content}>
 
         <div className={style.contentServers}>
           <h6>Servers</h6>
-          <h4>{session?.user?.name}</h4>
+          <h4>romacode</h4>
           {
             serversData.map(server => (
               <Server
@@ -23,11 +37,9 @@ const servers = () => {
               />
             ))
           }
-          {session && (
-            <Link href="#" onClick={() => signOut()} className={style.signinBtn}>
+            <button className={style.signinBtn}  onClick={handleLogout}>
               Logout
-            </Link>
-          )}
+            </button>
         </div>
       </div>
 

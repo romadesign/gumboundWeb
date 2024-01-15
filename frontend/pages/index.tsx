@@ -33,8 +33,6 @@ export default function Page(props) {
     setStatusLog(isAuthenticated);
   }, []);
 
-  // const socket = io("http://localhost:4000")
-  // console.log(socket, "hol")
 
   return (
     <div className={styles.container}>
@@ -46,7 +44,7 @@ export default function Page(props) {
         </div>
       ) : (
         <div>
-            {/* <div className={styles.contentNavbar}>
+            <div className={styles.contentNavbar}>
               <Navbar />
               <SubNavbar />
             </div>
@@ -61,8 +59,8 @@ export default function Page(props) {
                 <BuddyList />
               </div>
             </div>
-            <Servers /> */}
-            <SocketIndicator />
+            <Servers />
+            {/* <SocketIndicator /> */}
         </div>
       )}
     </div>

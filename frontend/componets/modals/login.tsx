@@ -5,14 +5,12 @@ import { useState } from 'react';
 import { io } from 'socket.io-client';
 import Cookies from 'js-cookie';
 import styles from '@/styles/auth/auth.module.css'
-import { useRouter } from 'next/navigation'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter()
   
-  const handleLogin = async () => {
+  const handleLogin = () => {
     const socket = io('http://localhost:4000');
 
     socket.emit('authenticate', { email, password });
@@ -22,16 +20,13 @@ const Login = () => {
         Cookies.set('userToken', email, { expires: 7 }); // Puedes ajustar el tiempo de expiración según tus necesidades
 
         console.log('Autenticación exitosa');
-        router.push("/")
+        window.location.reload();
+
         // Realizar acciones adicionales después de la autenticación exitosa
       } else {
         console.log('Autenticación fallida');
         // Mostrar un mensaje de error o realizar acciones adicionales después de la autenticación fallida
       }
-    });
-
-    socket.on('authenticationSuccess', ({ additionalData }) => {
-      Cookies.set('additionalData', JSON.stringify(additionalData)); // Puedes ajustar el tiempo de expiración según tus necesidades
     });
   };
 

@@ -1,5 +1,4 @@
 import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
 import React from 'react';
 
 interface MyAppProps extends AppProps {
@@ -8,9 +7,7 @@ interface MyAppProps extends AppProps {
 
 function MyApp({ Component, pageProps }: MyAppProps) {
   return (
-    <SessionProvider session={pageProps.session}>
       <Component {...pageProps} />
-    </SessionProvider>
   );
 }
 
