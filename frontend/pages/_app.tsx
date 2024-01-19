@@ -7,7 +7,7 @@ interface MyAppProps extends AppProps {
 
 function MyApp({ Component, pageProps }: MyAppProps) {
   return (
-      <Component {...pageProps} />
+    <Component {...pageProps} />
   );
 }
 

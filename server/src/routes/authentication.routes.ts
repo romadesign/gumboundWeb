@@ -2,10 +2,36 @@ import { Router } from "express";
 import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
 import { registerUser } from "./auth/registerService";
+import { loginService } from "./auth/loginService";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const router = Router();
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+
+router.post("/login", async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const result = await loginService({ email, password });
+
+  if (result.success) {
+    const userData = result.user;
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    res.cookie('profile', userData, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // Tiempo de expiración en milisegundos (aquí, 1 día)
+      sameSite: 'strict',
+      path: '/',
+      secure: true,
+    });
+
+    res.status(200).json(result);
+  } else {
+    res.status(401).json(result);
+  }
+});
 
 
 router.post("/register", async (req: Request, res: Response) => {
@@ -26,5 +52,12 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 
 })
+
+router.post('/logout', (req, res) => {
+  // Limpiar la cookie de sesión
+  res.clearCookie('login');
+  res.json({ success: true });
+});
+
 
 export default router;

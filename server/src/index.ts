@@ -10,8 +10,14 @@ import { handleSocketConnection } from '../src/routes/auth/handleSocketConnectio
 const app = express();
 const server = http.createServer(app); // Conectar Express al servidor HTTP
 
-app.use(cors());
 app.use(express.json());
+
+
+// Configurar CORS
+app.use(cors({ 
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 const { PORT } = process.env || 4000;
 app.use("/api", profilesRouter);

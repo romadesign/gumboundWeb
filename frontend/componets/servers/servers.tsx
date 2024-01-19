@@ -6,19 +6,28 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { io } from 'socket.io-client';
 
-
 const servers = () => {
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/logout', {
+        method: 'POST',
+        credentials: 'include', // Importante para incluir las cookies
+      });
 
-  const handleLogout = () => {
-    // Limpiar información de autenticación
-    Cookies.remove('userToken');
+      const data = await response.json();
 
-    // Desconectar el socket si existe
-    const socket = io("http://localhost:4000");
-    socket.disconnect();
-    window.location.reload();
-
+      if (data.success) {
+        Cookies.remove('login'); // Elimina la cookie
+        Cookies.remove('status'); // Elimina la cookie
+        window.location.reload(); // O realiza cualquier otra acción después del logout
+      } else {
+        console.log('Logout fallido:', data.message);
+      }
+    } catch (error) {
+      console.error('Error durante el logout:', error);
+    }
   };
+
 
 
   return (
@@ -30,16 +39,16 @@ const servers = () => {
           <h4>romacode</h4>
           {
             serversData.map(server => (
-              <Server
-                key={server.id}
-                name={server.name}
-                level={server.level}
-              />
+              <Link href={`/server/${server.id}`} key={server.id}>
+                <Server key={server.id} name={server.name} level={server.level} />
+              </Link>
             ))
           }
-            <button className={style.signinBtn}  onClick={handleLogout}>
-              Logout
-            </button>
+          {/* <button className={style.signinBtn} onClick={handleLogout}>
+            Logout
+          </button> */}
+          <button className={style.signinBtn} onClick={handleLogout}>Cerrar sesión</button>
+
         </div>
       </div>
 
