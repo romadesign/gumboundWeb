@@ -23,7 +23,7 @@ const loginService = async ({ email, password }: loginUserArgs) => {
     }
 
     // Verificar la contraseña solo si existe un usuario
-    const passwordMatch = user.password ? bcrypt.compare(password, user.password) : false;
+    const passwordMatch = user.password ? await bcrypt.compare(password, user.password) : false;
 
     if (passwordMatch) {
       console.log(`User authenticated: ${user.email}`);

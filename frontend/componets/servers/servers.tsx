@@ -2,9 +2,6 @@ import style from '@/styles/servers/servers.module.css'
 import Server from '../servers/server'
 import Link from 'next/link';
 import serversData from '../../servers.json';
-import { useState } from 'react';
-import Cookies from 'js-cookie';
-import { io } from 'socket.io-client';
 
 const servers = () => {
   const handleLogout = async () => {
@@ -17,8 +14,6 @@ const servers = () => {
       const data = await response.json();
 
       if (data.success) {
-        Cookies.remove('login'); // Elimina la cookie
-        Cookies.remove('status'); // Elimina la cookie
         window.location.reload(); // O realiza cualquier otra acción después del logout
       } else {
         console.log('Logout fallido:', data.message);

@@ -15,12 +15,22 @@ router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const result = await loginService({ email, password });
 
+
+
   if (result.success) {
     const userData = result.user;
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-    res.cookie('profile', userData, {
-      httpOnly: true,
+    res.cookie('profile', JSON.stringify(userData), {
+      httpOnly: true, 
+      maxAge: 24 * 60 * 60 * 1000, // Tiempo de expiración en milisegundos (aquí, 1 día)
+      sameSite: 'strict',
+      path: '/',
+      secure: true,
+    });
+
+    res.cookie('status', JSON.stringify("authenticated"), {
+      httpOnly: false, 
       maxAge: 24 * 60 * 60 * 1000, // Tiempo de expiración en milisegundos (aquí, 1 día)
       sameSite: 'strict',
       path: '/',
@@ -55,7 +65,8 @@ router.post("/register", async (req: Request, res: Response) => {
 
 router.post('/logout', (req, res) => {
   // Limpiar la cookie de sesión
-  res.clearCookie('login');
+  res.clearCookie('status');
+  res.clearCookie('profile');
   res.json({ success: true });
 });
 

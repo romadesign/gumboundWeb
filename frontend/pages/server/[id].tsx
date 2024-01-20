@@ -8,9 +8,8 @@ import BuddyList from 'componets/listFriends/buddyList';
 import styles from '@/styles/page.module.css'
 import SocketIndicator from "componets/socket-indicator"
 
-
 const ServerPage = () => {
-
+ 
   return (
     <div>
       <div className={styles.contentNavbar}>
