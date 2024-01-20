@@ -15,8 +15,6 @@ router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const result = await loginService({ email, password });
 
-
-
   if (result.success) {
     const userData = result.user;
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');

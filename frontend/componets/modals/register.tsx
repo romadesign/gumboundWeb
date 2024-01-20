@@ -1,79 +1,57 @@
-'use client'
-import { useState } from "react";
+// use 'useEffect' to perform actions after component mount
+import { useEffect, useState } from "react";
 import styles from '@/styles/auth/auth.module.css'
+import { useAuth } from "hooks/authHooks";
 
-const registerAndLogin = ({ }) => {
-  const api = process.env.NEXT_PUBLIC_BACKAPI_URL
-  const [formDataRegister, setFormDataRegister] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
+const RegisterAndLogin = () => {
+  const { register } = useAuth(); // Assuming you have a 'register' function in your 'authHooks'
 
-  const { name, email, password } = formDataRegister;
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleChangeRegister = (e: any) => {
-    const { name, value } = e.target;
-    setFormDataRegister((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const submitFormRegister = async (e: any) => {
+  const submitFormRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Realiza la solicitud de registro al backend
+    // Assuming 'register' function returns a Promise
     try {
-      const response = await fetch(`${api}/api/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formDataRegister),
-      });
-
-      if (response.ok) {
-        // Registro exitoso, podrías redirigir al usuario o realizar otras acciones
-      } else {
-        // Manejo de errores, por ejemplo, mostrar un mensaje al usuario
-        console.error('Error en el registro');
-      }
+      await register(name, email, password);
+      // Optionally, you can perform a login after successful registration
+      // await login(email, password);
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      console.error('Registration failed:', error);
+      // Handle registration failure (show an error message, etc.)
     }
   };
 
-
   return (
     <div className={styles.contentRegister}>
-      <form onSubmit={submitFormRegister} >
+      <form onSubmit={submitFormRegister}>
         <input
           type='text'
           name='name'
-          placeholder='name'
+          placeholder='Name'
           value={name}
-          onChange={handleChangeRegister}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type='email'
           name='email'
           placeholder='Email'
           value={email}
-          onChange={handleChangeRegister}
+          onChange={(e) => setEmail(e.target.value)}
         />
-
         <input
           type='password'
           name='password'
           placeholder='Password'
           value={password}
-          onChange={handleChangeRegister}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <button >Register</button>
+        <button type='submit'>Register</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default registerAndLogin;
+export default RegisterAndLogin;
