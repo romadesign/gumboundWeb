@@ -27,7 +27,7 @@ const loginService = async ({ email, password }: loginUserArgs) => {
 
     if (passwordMatch) {
       console.log(`User authenticated: ${user.email}`);
-      return { success: true, user: { id: user.id, email: user.email, /* Otros campos que quieras devolver */ } };
+      return { success: true, user: { id: user.id, email: user.email, name: user.name } };
       
     } else {
       console.log(`Authentication failed for user: ${email}`);

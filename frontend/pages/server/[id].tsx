@@ -6,7 +6,7 @@ import Chat from 'componets/chat/chat';
 import Character from 'componets/character/character';
 import BuddyList from 'componets/listFriends/buddyList';
 import styles from '@/styles/page.module.css'
-import SocketIndicator from "componets/socket-indicator"
+import SocketIndicator from "componets/socketConnection"
 
 const ServerPage = () => {
  

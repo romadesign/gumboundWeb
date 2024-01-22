@@ -5,7 +5,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 import profilesRouter from "./routes/profiles.routes";
 import authenticationRoute from "./routes/authentication.routes";
-import { handleSocketConnection } from '../src/routes/auth/handleSocketConnection';
+import { handleSocketConnection } from '../src/routes/chatUserSocket/handleSocketConnection';
 
 const app = express();
 const server = http.createServer(app); // Conectar Express al servidor HTTP

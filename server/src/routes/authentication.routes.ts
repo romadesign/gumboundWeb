@@ -20,7 +20,7 @@ router.post("/login", async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     res.cookie('profile', JSON.stringify(userData), {
-      httpOnly: true, 
+      httpOnly: false, 
       maxAge: 24 * 60 * 60 * 1000, // Tiempo de expiración en milisegundos (aquí, 1 día)
       sameSite: 'strict',
       path: '/',
