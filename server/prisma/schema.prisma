@@ -41,14 +41,32 @@ model Profile {
 model Server {
   id       Int    @id @default(autoincrement())
   name     String
+  description String
+  technology String
+  language  technology @default(Javascript)
+  level level @default(JUNIOR)
   imageUrl String @db.Text
 
   profiles Profile[]
   channels Channel[]
   members  Member[]
 
-
   createdAt DateTime @default(now())
+}
+
+enum technology {
+  Javascript
+  Python
+  Php
+  TypeScript
+  Javas
+  Ruby
+}
+
+enum level {
+  JUNIOR
+  MID
+  SENIOR
 }
 
 model Channel {
