@@ -2,10 +2,14 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const Home = () => {
-  const [userList, setUserList] = useState([]);
-  const [isConnected, setIsConnected] = useState(false);
+interface SocketIndicatorProps {
+  serverId: string | string[] | undefined;
+}
 
+const Home: React.FC<SocketIndicatorProps> = () => {
+  const [userList, setUserList] = useState<{ name: string }[]>([]);
+  const [isConnected, setIsConnected] = useState(false);
+console.log(userList)
   useEffect(() => {
     const socket = io('http://localhost:4000');
     const storedProfile = Cookies.get('profile');
@@ -18,8 +22,11 @@ const Home = () => {
 
     const { name } = profile;
 
-    // Emitir el evento "authenticate" con el nombre del usuario
-    socket.emit('authenticate', { name });
+    // Obtener el serverId de la cookie
+    const serverIdFromCookie = Cookies.get('serverId');
+
+    // Emitir el evento "authenticate" con el nombre del usuario y el serverId
+    socket.emit('authenticate', { name, serverId: serverIdFromCookie });
 
     // Escuchar el evento de conexión exitosa
     socket.on('connect', () => {
@@ -44,10 +51,9 @@ const Home = () => {
           <h1>Usuarios Conectados:</h1>
           <ul>
             {userList.map((user, index) => (
-              <li key={index}>{user}</li>
+              <li key={index}>{String(user.name)}</li>
             ))}
           </ul>
-          asdasda
         </div>
       ) : (
         <p>Conectando...</p>

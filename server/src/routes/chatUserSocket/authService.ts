@@ -4,18 +4,19 @@ import { Socket } from 'socket.io';
 
 const prisma = new PrismaClient();
 
-const connectedUsers: Record<string, string> = {}; // Objeto para almacenar ID de socket y nombre de usuario
+const connectedUsers: Record<string, { name: string; serverId: number }> = {};
 
 type AuthenticateUserArgs = {
   socket: Socket;
-  name: string; // Agrega el nombre de usuario como argumento
-  io: any; 
+  name: string;
+  serverId: number;
+  io: any;
 };
 
-const authenticateUser = ({io, socket, name }: AuthenticateUserArgs) => {
+const authenticateUser = ({io, socket, name, serverId }: AuthenticateUserArgs) => {
   console.log("user", name);
 
-  connectedUsers[socket.id] = name;
+  connectedUsers[socket.id] = { name, serverId };
 
   // Emitir evento de actualización de lista de usuarios autenticados
   io.emit('updateUserList', Object.values(connectedUsers));
