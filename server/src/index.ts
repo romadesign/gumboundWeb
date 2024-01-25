@@ -5,6 +5,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 import profilesRouter from "./routes/profiles.routes";
 import authenticationRoute from "./routes/authentication.routes";
+import serverRoute from "./routes/server.routes";
 import { handleSocketConnection } from '../src/routes/chatUserSocket/handleSocketConnection';
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(cors({
 const { PORT } = process.env || 4000;
 app.use("/api", profilesRouter);
 app.use("/api", authenticationRoute);
+app.use("/api", serverRoute);
 
 const io = new Server(server, {
   cors: {

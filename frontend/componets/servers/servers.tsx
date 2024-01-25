@@ -2,8 +2,35 @@ import style from '@/styles/servers/servers.module.css'
 import Server from '../servers/server'
 import Link from 'next/link';
 import serversData from '../../servers.json';
+import { useEffect, useState } from 'react';
+
+interface Server {
+  id: number;
+  name: string;
+  description: string;
+  language: string;
+  level: string;
+  // Otras propiedades que pueda tener tu objeto Server
+}
 
 const servers = () => {
+  const [servers, setServers] = useState<Server[]>([]);
+  console.log(servers)
+
+  servers.map((server) => {
+    console.log(server.id)
+  })
+
+  const getServers = async() =>{
+    try {
+      const data = await fetch('http://localhost:4000/api/servers')
+      const result = await data.json()
+      setServers(result)
+    } catch (error) {
+      console.error('Error al traer los servidores:', error);
+    }
+  }
+
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:4000/api/logout', {
@@ -23,6 +50,9 @@ const servers = () => {
     }
   };
 
+  useEffect(() => {
+    getServers()
+  }, [])
 
 
   return (
@@ -33,7 +63,7 @@ const servers = () => {
           <h6>Servers</h6>
           <h4>romacode</h4>
           {
-            serversData.map(server => (
+            servers.map(server => (
               <Link href={`/server/${server.id}`} key={server.id}>
                 <Server key={server.id} name={server.name} level={server.level} />
               </Link>

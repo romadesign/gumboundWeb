@@ -3,7 +3,7 @@ import style from '@/styles/servers/servers.module.css'
 
 interface serverProps {
     name: React.ReactNode;
-    level: string[]
+    level: string
     // img: React.ReactNode;
 }
 
