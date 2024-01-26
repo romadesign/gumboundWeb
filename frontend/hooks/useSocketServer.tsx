@@ -1,16 +1,15 @@
-// useSocketServer.tsx
-import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 
-interface SocketIndicatorProps {
-  serverId?: string | string[] | undefined;
-}
+// interface SocketIndicatorProps {
+//   serverId: string | string[] | undefined;
+// }
 
-export const useSocketServer = ({ serverId: initialServerId }: SocketIndicatorProps = {}) => {
+export const useSocketServer = () => {
   const [userList, setUserList] = useState<{ name: string }[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-
+  
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKAPI_URL}`);
     const storedProfile = Cookies.get('profile');
@@ -23,8 +22,8 @@ export const useSocketServer = ({ serverId: initialServerId }: SocketIndicatorPr
 
     const { name } = profile;
 
-    // Obtener el serverId de la cookie o usar el inicial proporcionado
-    const serverIdFromCookie = Cookies.get('serverId') || initialServerId;
+    // Obtener el serverId de la cookie
+    const serverIdFromCookie = Cookies.get('serverId');
 
     // Emitir el evento "authenticate" con el nombre del usuario y el serverId
     socket.emit('authenticate', { name, serverId: serverIdFromCookie });
@@ -43,7 +42,8 @@ export const useSocketServer = ({ serverId: initialServerId }: SocketIndicatorPr
     return () => {
       socket.disconnect();
     };
-  }, [initialServerId]);
+  }, []);
+
 
   return {
     userList,

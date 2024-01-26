@@ -10,15 +10,34 @@ import SocketIndicator from "componets/socketConnection"
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { useSocketServer } from 'hooks/useSocketServer';
+import { useEffect, useState } from 'react';
 
 
 const ServerPage = () => {
   const { isConnected, userList } = useSocketServer();
 
   const router = useRouter();
-  const { id } = router.query; 
+  const [serverId, setServerId] = useState<string | undefined>(undefined);
 
-  Cookies.set('serverId', id as string);
+
+
+  useEffect(() => {
+    // Verifica si router.query y router.query.id existen
+    if (router.query && router.query.id) {
+      // Accede al número de la ruta actual
+      const currentServerId = Array.isArray(router.query.id)
+        ? router.query.id[0]  // Si es un array, toma el primer elemento
+        : router.query.id;   // Si es un string, úsalo directamente
+
+      // Almacena el serverId en las cookies
+      Cookies.set('serverId', currentServerId);
+
+      // Actualiza el estado con el nuevo serverId
+      setServerId(currentServerId);
+
+      // Resto de tu lógica...
+    }
+  }, [router.query]);
 
 
   return (

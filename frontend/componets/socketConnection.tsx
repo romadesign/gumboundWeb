@@ -9,7 +9,7 @@ interface SocketIndicatorProps {
 const Home: React.FC<SocketIndicatorProps> = () => {
   const [userList, setUserList] = useState<{ name: string }[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-console.log(userList)
+
   useEffect(() => {
     const socket = io('http://localhost:4000');
     const storedProfile = Cookies.get('profile');

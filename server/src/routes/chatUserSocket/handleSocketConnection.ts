@@ -31,6 +31,11 @@ connectedUsers[socket.id] = { name: '', serverId: 0 }; // Inicializar con un nom
     }
   });
 
+  socket.on("chatMessage", ({ sender, message, roomId }) => {
+    // Aquí puedes procesar el mensaje, almacenarlo en la base de datos si es necesario, y emitirlo a la sala específica.
+    io.to(roomId).emit("chatMessage", { sender, message });
+  });
+
   socket.on("disconnect", () => {
     disconnectUser(io, socket);
   });
