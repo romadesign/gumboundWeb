@@ -9,8 +9,12 @@ import styles from '@/styles/page.module.css'
 import SocketIndicator from "componets/socketConnection"
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import { useSocketServer } from 'hooks/useSocketServer';
+
 
 const ServerPage = () => {
+  const { isConnected, userList } = useSocketServer();
+
   const router = useRouter();
   const { id } = router.query; 
 
@@ -30,9 +34,9 @@ const ServerPage = () => {
         </div>
         <div className={styles.characterAndBuddyListContainer}>
           <Character />
-          <BuddyList />
+          <BuddyList userList={userList} isConnected={isConnected}/>
         </div>
-        <SocketIndicator serverId={id}/>
+        {/* <SocketIndicator serverId={id}/> */}
       </div>
     </div>
   );
