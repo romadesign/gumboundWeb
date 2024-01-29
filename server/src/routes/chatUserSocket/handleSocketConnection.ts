@@ -5,20 +5,16 @@ import { Server, Socket } from 'socket.io';
 const handleSocketConnection = (io: Server, socket: Socket) => {
   console.log(io.engine.clientsCount);
 
-// Agregar el ID del usuario al objeto de usuarios conectados
-connectedUsers[socket.id] = { name: '', serverId: 0 }; // Inicializar con un nombre de usuario vacío y serverId 0
-
-
   // Emitir evento de usuarios conectados a todos los clientes
   io.emit("updateUserList", Object.values(connectedUsers));
 
-  socket.on("authenticate", ({ name, serverId }) => {
-    const isAuthenticated = authenticateUser({io, socket, name, serverId });
+  socket.on("joinServer", async ({ name, serverId, profileId }) => {
+    const isAuthenticated = await authenticateUser({io, socket, name, serverId, profileId });
     console.log("user", name);
 
     if (isAuthenticated) {
       // Actualizar el nombre del usuario y el ID del servidor después de la autenticación exitosa
-      connectedUsers[socket.id] = { name, serverId };
+      connectedUsers[socket.id] = { name, serverId, profileId };
 
       // Emitir evento de autenticación exitosa
       io.emit("authenticated", { success: true });

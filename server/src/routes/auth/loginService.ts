@@ -26,18 +26,36 @@ const loginService = async ({ email, password }: loginUserArgs) => {
     const passwordMatch = user.password ? await bcrypt.compare(password, user.password) : false;
 
     if (passwordMatch) {
+      const userProfile = await prisma.profile.findFirst({
+        where: {
+          userId: user.id,
+        },
+      });
+
       console.log(`User authenticated: ${user.email}`);
-      return { success: true, user: { id: user.id, email: user.email, name: user.name } };
-      
+
+      // Aquí puedes emitir un evento de autenticación al socket del usuario
+
+      return { success: true, user: { id: userProfile?.id, email: user.email, name: user.name } };
+
     } else {
       console.log(`Authentication failed for user: ${email}`);
+
+      // Aquí puedes emitir un evento de autenticación fallida al socket del usuario
+
       return { success: false, message: 'Credenciales incorrectas' }; // Autenticación fallida
     }
 
   } catch (error) {
     console.error('Error during authentication:', error);
+
+    // Aquí puedes emitir un evento de error al socket del usuario
     return { success: false, message: 'Error durante la autenticación' }; // Autenticación fallida debido a un error
   }
 };
 
 export { loginService };
+
+
+
+

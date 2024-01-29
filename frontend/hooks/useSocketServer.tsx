@@ -20,13 +20,14 @@ export const useSocketServer = () => {
       return;
     }
 
-    const { name } = profile;
+    const { id,name } = profile;
+    const profileId= id
 
     // Obtener el serverId de la cookie
-    const serverIdFromCookie = Cookies.get('serverId');
+    const serverIdFromCookie = Number(Cookies.get('serverId'));
 
     // Emitir el evento "authenticate" con el nombre del usuario y el serverId
-    socket.emit('authenticate', { name, serverId: serverIdFromCookie });
+    socket.emit('joinServer', { name, serverId: serverIdFromCookie, profileId });
 
     // Escuchar el evento de conexión exitosa
     socket.on('connect', () => {
