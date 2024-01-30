@@ -3,13 +3,13 @@ import { authenticateUser, disconnectUser, connectedUsers } from "./authService"
 import { Server, Socket } from 'socket.io';
 
 const handleSocketConnection = (io: Server, socket: Socket) => {
-  console.log(io.engine.clientsCount);
 
   // Emitir evento de usuarios conectados a todos los clientes
   io.emit("updateUserList", Object.values(connectedUsers));
 
   socket.on("joinServer", async ({ name, serverId, profileId }) => {
-    const isAuthenticated = await authenticateUser({io, socket, name, serverId, profileId });
+    console.log(serverId, "servidor connected")
+    const isAuthenticated = await authenticateUser({ io, socket, name, serverId , profileId});
     console.log("user", name);
 
     if (isAuthenticated) {

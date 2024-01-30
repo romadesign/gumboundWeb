@@ -1,7 +1,6 @@
 import style from '@/styles/servers/servers.module.css'
 import Server from '../servers/server'
 import Link from 'next/link';
-import serversData from '../../servers.json';
 import { useEffect, useState } from 'react';
 
 interface Server {
@@ -15,15 +14,10 @@ interface Server {
 
 const servers = () => {
   const [servers, setServers] = useState<Server[]>([]);
-  console.log(servers)
-
-  servers.map((server) => {
-    console.log(server.id)
-  })
 
   const getServers = async() =>{
     try {
-      const data = await fetch('http://localhost:4000/api/servers')
+      const data = await fetch(`${process.env.NEXT_PUBLIC_BACKAPI_URL}/api/servers`)
       const result = await data.json()
       setServers(result)
     } catch (error) {
@@ -33,7 +27,7 @@ const servers = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/logout', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKAPI_URL}/api/logout`, {
         method: 'POST',
         credentials: 'include', // Importante para incluir las cookies
       });
@@ -65,15 +59,11 @@ const servers = () => {
           {
             servers.map(server => (
               <Link href={`/server/${server.id}`} key={server.id}>
-                <Server key={server.id} name={server.name} level={server.level} />
-              </Link>
+                <Server name={server.name} level={server.level} />
+            </Link>
             ))
           }
-          {/* <button className={style.signinBtn} onClick={handleLogout}>
-            Logout
-          </button> */}
           <button className={style.signinBtn} onClick={handleLogout}>Cerrar sesión</button>
-
         </div>
       </div>
 
@@ -81,6 +71,3 @@ const servers = () => {
   )
 }
 export default servers;
-
-
-//https://blog.logrocket.com/how-to-use-nextauth-js-client-side-authentication-next-js/     next auth

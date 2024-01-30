@@ -2,10 +2,6 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 
-// interface SocketIndicatorProps {
-//   serverId: string | string[] | undefined;
-// }
-
 export const useSocketServer = () => {
   const [userList, setUserList] = useState<{ name: string }[]>([]);
   const [isConnected, setIsConnected] = useState(false);
@@ -20,11 +16,11 @@ export const useSocketServer = () => {
       return;
     }
 
-    const { id,name } = profile;
-    const profileId= id
+    const { id, name } = profile;
+    const profileId = id
 
     // Obtener el serverId de la cookie
-    const serverIdFromCookie = Number(Cookies.get('serverId'));
+    const serverIdFromCookie = Cookies.get('serverId');
 
     // Emitir el evento "authenticate" con el nombre del usuario y el serverId
     socket.emit('joinServer', { name, serverId: serverIdFromCookie, profileId });
