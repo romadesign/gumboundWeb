@@ -1,9 +1,9 @@
 // use 'useEffect' to perform actions after component mount
 import { useEffect, useState } from "react";
 import styles from '@/styles/auth/auth.module.css'
-import { useAuth } from "hooks/authHooks";
+import { useAuth } from "../../hooks/authHooks";
 
-const RegisterAndLogin = () => {
+const Register = () => {
   const { register } = useAuth(); // Assuming you have a 'register' function in your 'authHooks'
 
   const [name, setName] = useState('');
@@ -54,4 +54,4 @@ const RegisterAndLogin = () => {
   );
 }
 
-export default RegisterAndLogin;
+export default Register;

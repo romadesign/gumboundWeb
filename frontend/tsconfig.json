@@ -34,6 +34,6 @@
     "**/*.tsx",
     "types.d.ts",
     ".next/types/**/*.ts"
-, "app/api/new/hello.js", "app/api/auth/route.js", "libs/db.js", "pages/api/socket/io.ts"  ],
+, "app/api/new/hello.js", "app/api/auth/route.js", "libs/db.js", "pages/api/socket/io.ts", "test-setup.js", "test-setup.js"  ],
   "exclude": ["node_modules"]
 }

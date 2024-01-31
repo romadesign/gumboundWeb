@@ -1,5 +1,5 @@
 import style from '@/styles/servers/servers.module.css'
-import Server from '../servers/server'
+import Server from './server'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 

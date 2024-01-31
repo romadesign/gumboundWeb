@@ -2,7 +2,9 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 export const useAuth = () => {
+  
   const api = process.env.NEXT_PUBLIC_BACKAPI_URL
+  
 
   const login = async (email: string, password: string) => {
     try {
@@ -23,7 +25,7 @@ export const useAuth = () => {
         console.log('Autenticación fallida:', data.message);
       }
     } catch (error) {
-      console.error('Error durante la autenticación:', error);
+      console.log('Error durante la autenticación:', error);
     }
   };
 
@@ -43,10 +45,10 @@ export const useAuth = () => {
         // Registro exitoso, podrías redirigir al usuario o realizar otras acciones
       } else {
         // Manejo de errores, por ejemplo, mostrar un mensaje al usuario
-        console.error('Error en el registro');
+        console.log('Error en el registro');
       }
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      console.log('Error en la solicitud:', error);
     }
   }
  

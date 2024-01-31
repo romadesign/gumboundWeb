@@ -1,8 +1,8 @@
 "use client";
 
-import Register from "componets/modals/register";
-import Servers from "componets/servers/servers";
-import Login from "componets/modals/login";
+import Register from "@/components/modals/register";
+import Servers from "@/components/servers/servers";
+import Login from "@/components/modals/login";
 import styles from '@/styles/page.module.css';
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";

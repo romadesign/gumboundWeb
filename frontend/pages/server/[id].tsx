@@ -1,10 +1,10 @@
 "use client"
-import Navbar from 'componets/navbar/navbar';
-import SubNavbar from 'componets/navbar/subNavbar';
-import RoomsList from 'componets/roomsList/roomsList';
-import Chat from 'componets/chat/chat';
-import Character from 'componets/character/character';
-import BuddyList from 'componets/listFriends/buddyList';
+import Navbar from '@/components/navbar/navbar';
+import SubNavbar from '@/components/navbar/subNavbar';
+import RoomsList from '@/components/roomsList/roomsList';
+import Chat from '@/components/chat/chat';
+import Character from '@/components/character/character';
+import BuddyList from '@/components/listFriends/buddyList';
 import styles from '@/styles/page.module.css'
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
