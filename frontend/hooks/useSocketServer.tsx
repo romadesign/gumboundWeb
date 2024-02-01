@@ -5,7 +5,6 @@ import { io } from 'socket.io-client';
 export const useSocketServer = () => {
   const [userList, setUserList] = useState<{ name: string }[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-  
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKAPI_URL}`);
     const storedProfile = Cookies.get('profile');
@@ -44,6 +43,6 @@ export const useSocketServer = () => {
 
   return {
     userList,
-    isConnected
+    isConnected,
   };
 };

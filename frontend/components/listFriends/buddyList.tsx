@@ -9,7 +9,6 @@ interface BuddyListProps {
 }
 
 const BuddyList: React.FC<BuddyListProps> = ({ userList, isConnected }) => {
-    console.log(userList)
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState<{ sender: string; message: string }[]>([]);
 

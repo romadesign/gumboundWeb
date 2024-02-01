@@ -3,7 +3,7 @@ import styles from '@/styles/page.module.css'
 
 const roomsList = () => {
     return(
-        <div className={styles.roomListContainer}>
+        <div className={styles.roomListContainer} data-testid="rooms-list">
             <Cards 
             hall={3}
             title={"mi sala"}

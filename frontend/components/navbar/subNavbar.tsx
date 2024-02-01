@@ -1,7 +1,7 @@
 import Buttons from './buttons'
 const subNavbar = () => {
     return (
-        <>
+        <div data-testid="subnavbar" >
             <Buttons title={"Friends show"} />
             <Buttons title={"Guild show"} />
             <Buttons title={"Mod normal"} />
@@ -10,7 +10,7 @@ const subNavbar = () => {
             <Buttons title={"Mod Score"} />
 
 
-        </>
+        </div>
     )
 }
 

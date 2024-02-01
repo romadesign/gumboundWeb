@@ -16,8 +16,10 @@ const Register = () => {
     // Assuming 'register' function returns a Promise
     try {
       await register(name, email, password);
+      setName('')
+      setEmail('')
+      setPassword('')
       // Optionally, you can perform a login after successful registration
-      // await login(email, password);
     } catch (error) {
       console.error('Registration failed:', error);
       // Handle registration failure (show an error message, etc.)

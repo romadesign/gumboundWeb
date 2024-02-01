@@ -8,34 +8,39 @@ import BuddyList from '@/components/listFriends/buddyList';
 import styles from '@/styles/page.module.css'
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { useSocketServer } from 'hooks/useSocketServer';
+import { useSocketServer } from '../../hooks/useSocketServer';
 import { useEffect, useMemo, useState } from 'react';
-
+import { io } from 'socket.io-client';
 
 const ServerPage = () => {
   const { isConnected, userList } = useSocketServer();
-
   const router = useRouter();
   const [serverId, setServerId] = useState<string | undefined>(undefined);
 
-  const serverIdCookie = Cookies.set('serverId', String(router.query.id) );
+  useEffect(() => {
+    const socket = io(`${process.env.NEXT_PUBLIC_BACKAPI_URL}`);
 
-  useMemo(() => {
-    // Verifica si router.query y router.query.id existen
-    if (router.query && router.query.id) {
-      // Accede al número de la ruta actual
-      const currentServerId = Array.isArray(router.query.id)
-        ? router.query.id[0]  // Si es un array, toma el primer elemento
-        : router.query.id;   // Si es un string, úsalo directamente
+    if (typeof window !== 'undefined') {
+      // Verifica si router.query y router.query.id existen
+      if (router.query && router.query.id) {
+        // Accede al número de la ruta actual
+        const currentServerId = Array.isArray(router.query.id)
+          ? router.query.id[0]  // Si es un array, toma el primer elemento
+          : router.query.id;   // Si es un string, úsalo directamente
 
-      // Actualiza el estado con el nuevo serverId
-      setServerId(serverIdCookie);
+        // Actualiza el estado con el nuevo serverId
+        setServerId(currentServerId);
+
+        // Almacena el serverId en la cookie
+        Cookies.set('serverId', String(currentServerId));
+      }
+
     }
-  }, [serverId]);
-
+    
+  }, [router.query]);
 
   return (
-    <div>
+    <div data-testid="server-page">
       <div className={styles.contentNavbar}>
         <Navbar />
         <SubNavbar />

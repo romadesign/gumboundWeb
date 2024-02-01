@@ -3,7 +3,7 @@ import Styles from '@/styles/navbar/navbar.module.css'
 
 const navbar = () => {
     return (
-        <div className={Styles.content}>
+        <div className={Styles.content} data-testid="navbar">
             <Buttons title={"ALL"} />
             <Buttons title={"WAIT"} />
             <Buttons title={"CREATE"} />
